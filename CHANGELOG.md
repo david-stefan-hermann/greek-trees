@@ -1,5 +1,8 @@
 # Changelog
 
+## 0.20.0
+- The **Greek Trees Guide** is now drawn by the guide book library shared by all BaconCakeFactory mods (bundled in the jar, nothing extra to install). It looks and reads as before.
+
 ## 0.19.0
 - The Greek Trees Guide is now a panel with tabs: one tab per tree on the left; basics, large trees, fruit and olive pits on the right. Pages break by themselves, so no text runs off a page.
 - Every recipe is shown as a full 3x3 crafting grid, and the sapling squares of the large trees and the Aries oak are drawn as a grid of slots.

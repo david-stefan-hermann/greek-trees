@@ -30,7 +30,7 @@ PICK = {'cypress': 3, 'olive': 0, 'fig': 2, 'strawberry_tree': 0, 'date_palm': 1
 PIC = 192  # tree picture in pixels, drawn on 96 x 96 GUI pixels (112 left too little room for the text)
 BOOK_ITEM = 2  # the item texture variant (1-2, see item_texture)
 
-PAGE = (244, 241, 234, 255)  # the book's page in GuideBookScreen, for the preview sheet only
+PAGE = (244, 241, 234, 255)  # the book's page (the theme in GuideBook.java), for the preview sheet only
 FRAME = (185, 196, 210, 255)
 CREAM, BLUE, DBLUE = (240, 232, 212), (44, 96, 170), (26, 60, 120)
 

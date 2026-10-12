@@ -8,12 +8,22 @@ group = project.maven_group
 
 repositories {
     mavenCentral()
+    // bcf-guide-book-lib: `./gradlew publishToMavenLocal` in ../bcf-guide-book-lib
+    mavenLocal {
+        content {
+            includeGroup 'de.baconcakefactory'
+        }
+    }
 }
 
 dependencies {
     minecraft "com.mojang:minecraft:${project.minecraft_version}"
     implementation "net.fabricmc:fabric-loader:${project.loader_version}"
     implementation "net.fabricmc.fabric-api:fabric-api:${project.fabric_version}"
+
+    // The guide book's screen (bundled as a nested jar).
+    implementation "de.baconcakefactory:bcf-guide-book-lib:${project.guide_book_version}"
+    include "de.baconcakefactory:bcf-guide-book-lib:${project.guide_book_version}"
 }
 
 // `./gradlew runServer -PselfTest`: the dev server grows every sapling a number of times on platforms high above
@@ -49,14 +59,15 @@ if (project.hasProperty('drafts')) {
 
 // `./gradlew runClient -PbookShots`: the dev client joins the world run/saves/bookshots (a copy of run/world will
 // do; item stacks need a world's registries, the title screen has none), opens every page of the guide book, saves
-// run/screenshots/book_<language>_gui<scale>_<nr>.png and quits (see greektrees.GreekTreesClient). The language
-// and GUI scale come from run/options.txt (lang:de_de, guiScale:2; pauseOnLostFocus:false keeps the pause menu
-// away); 1280 x 720 is GUI scale 3 on auto.
+// run/screenshots/book_greektrees_<language>_<nr>.png and quits (see GuideBookClient in bcf-guide-book-lib). The
+// language and GUI scale come from run/options.txt (lang:de_de, guiScale:2; pauseOnLostFocus:false keeps the pause
+// menu away); 1280 x 720 is GUI scale 3 on auto. `-PbookShots=greektrees,<modid>` also goes through the books of
+// other mods dropped into run/mods.
 if (project.hasProperty('bookShots')) {
     loom {
         runs {
             client {
-                vmArg "-Dgreektrees.bookshots=1"
+                vmArg "-Dbcf.guidebook.shots=${project.bookShots ?: 'greektrees'}"
                 programArgs "--quickPlaySingleplayer", "bookshots"
                 programArgs "--width", "1280", "--height", project.hasProperty('bookShotsHeight') ? project.bookShotsHeight : "720"
             }

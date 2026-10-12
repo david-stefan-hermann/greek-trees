@@ -9,7 +9,6 @@ import java.util.Comparator;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.LinkedHashMap;
-import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -17,9 +16,10 @@ import java.util.UUID;
 
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
-import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import com.mojang.authlib.GameProfile;
+import bcf.guidebook.Chapter;
+import bcf.guidebook.Section;
 
 import greektrees.tree.AriesOak;
 import greektrees.tree.Drafts;
@@ -147,7 +147,7 @@ final class DevSelfTest {
         int failures = 0;
         // other mods dropped into run/mods (e.g. a harvest mod) take part in the right-click checks
         List<String> others = FabricLoader.getInstance().getAllMods().stream().map(m -> m.getMetadata().getId())
-                .filter(id -> !id.startsWith("fabric") && !List.of("greektrees", "java", "minecraft", "mixinextras")
+                .filter(id -> !id.startsWith("fabric") && !List.of("greektrees", "bcfguidebooklib", "java", "minecraft", "mixinextras")
                         .contains(id)).sorted().toList();
         lines.add("other mods loaded: " + (others.isEmpty() ? "none" : String.join(", ", others)));
         try {
@@ -1438,33 +1438,33 @@ final class DevSelfTest {
                 crafted, GreekTrees.SPECIES.size(), unlock));
 
         FakePlayer player = FakePlayer.get(level, new GameProfile(UUID.randomUUID(), "guide_book_gift"));
-        GuideBookItem.giveBookOnce(player);
-        GuideBookItem.giveBookOnce(player);
+        GuideBook.BOOK.giveOnce(player);
+        GuideBook.BOOK.giveOnce(player);
         int books = 0;
         for (int i = 0; i < player.getInventory().getContainerSize(); i++) {
             ItemStack stack = player.getInventory().getItem(i);
             books += stack.is(GreekTrees.GUIDE_BOOK) ? stack.getCount() : 0;
         }
-        boolean marked = player.hasAttached(GuideBookItem.GOT_BOOK);
+        boolean marked = player.hasAttached(GuideBook.BOOK.gotBook());
         if (books != 1 || !marked) {
             failures++;
         }
         lines.add(String.format("guide book gift: given twice to a new player, books %d (want 1), marked %s", books,
                 marked));
 
-        List<GuideBook.Chapter> chapters = GuideBook.chapters();
+        List<Chapter> chapters = GuideBook.BOOK.chapters();
         int trees = 0, matching = 0;
         boolean pits = false;
-        Set<String> keys = new LinkedHashSet<>(List.of("item.greektrees.guide_book"));
-        keys.addAll(GuideBook.keys());
-        for (GuideBook.Chapter chapter : chapters) {
-            trees += chapter.tree() ? 1 : 0;
-            for (GuideBook.Section section : chapter.sections()) {
-                if (!(section instanceof GuideBook.Recipe recipe)) {
+        List<String> keys = GuideBook.BOOK.keys();
+        for (Chapter chapter : chapters) {
+            boolean tree = chapter.side() == Chapter.Side.LEFT;
+            trees += tree ? 1 : 0;
+            for (Section section : chapter.sections()) {
+                if (!(section instanceof Section.Recipe recipe)) {
                     continue;
                 }
                 List<ItemStack> g = recipe.grid();
-                if (chapter.tree()) { // its icon is its sapling
+                if (tree) { // its icon is its sapling
                     List<Item> in = g.stream().filter(x -> !x.isEmpty()).map(ItemStack::getItem)
                             .sorted(Comparator.comparing(Item::toString)).toList();
                     String name = BuiltInRegistries.ITEM.getKey(chapter.icon().getItem()).getPath().replace("_sapling", "");
@@ -1478,13 +1478,7 @@ final class DevSelfTest {
                 }
             }
         }
-        List<String> missing = new ArrayList<>();
-        for (String language : List.of("en_us", "de_de")) {
-            JsonObject lang = JsonParser.parseString(Files.readString(FabricLoader.getInstance()
-                    .getModContainer(GreekTrees.MOD_ID).orElseThrow().findPath("assets/greektrees/lang/" + language + ".json")
-                    .orElseThrow(), StandardCharsets.UTF_8)).getAsJsonObject();
-            keys.stream().filter(k -> !lang.has(k)).forEach(k -> missing.add(language + ":" + k));
-        }
+        List<String> missing = GuideBook.BOOK.missingKeys("en_us", "de_de");
         if (trees != GreekTrees.SPECIES.size() || matching != trees || !pits || !missing.isEmpty()) {
             failures++;
         }

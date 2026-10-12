@@ -7,6 +7,9 @@
   "authors": [
     "BaconCakeFactory"
   ],
+  "contact": {
+    "sources": "https://github.com/david-stefan-hermann/greek-trees"
+  },
   "license": "MIT",
   "icon": "assets/greektrees/icon.png",
   "environment": "*",
@@ -21,6 +24,7 @@
   "depends": {
     "fabricloader": ">=${loader_version}",
     "fabric-api": "*",
+    "bcfguidebooklib": ">=1.0.0",
     "minecraft": "~26.2",
     "java": ">=25"
   }
