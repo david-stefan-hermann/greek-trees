@@ -13,8 +13,9 @@ appear in the vanilla tabs.
 
 ## Download
 
-Get `greektrees-<version>.jar` from the [GitHub releases](../../releases) and put it into `mods/` on the client and
-the server, next to Fabric API. Requires Minecraft 26.2, Fabric Loader 0.19.3+ and Java 25.
+Get `greektrees-<version>.jar` from [CurseForge](https://www.curseforge.com/minecraft/mc-mods/greek-trees) or the
+[GitHub releases](../../releases) and put it into `mods/` on the client and the server, next to Fabric API. Requires
+Minecraft 26.2, Fabric Loader 0.19.3+ and Java 25.
 
 ## The guide book
 
