@@ -1,6 +1,10 @@
 # Changelog
 
 ## 0.20.0
+This is Greek Trees 0.20.0 for Minecraft 1.21.1. What differs from the versions for newer Minecraft:
+- Minecraft 1.21.1 has no pale oak: the trunks of the mulberry and the weeping willow are acacia wood, and their saplings are crafted with a birch sapling instead of a pale oak sapling.
+- Ferns instead of firefly bushes grow on the moss in the Aries oak.
+
 - The **Greek Trees Guide** is now drawn by the guide book library shared by all BaconCakeFactory mods (bundled in the jar, nothing extra to install). It looks and reads as before.
 
 ## 0.19.0

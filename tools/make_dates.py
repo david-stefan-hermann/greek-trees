@@ -75,10 +75,11 @@ def write_all(write):
     write(f'assets/{NS}/blockstates/date_cluster.json', {'variants': variants})
     for age, cluster in enumerate(date_cluster.STAGES):
         tex = f'{NS}:block/date_cluster_stage{age}'
-        write(f'assets/{NS}/models/block/date_cluster_stage{age}.json',
+        # not under models/: 1.21.1's model files turn a box about one axis in steps of 22.5 degrees only, so the
+        # mod bakes these itself (greektrees.FreeModel)
+        write(f'assets/{NS}/free_models/date_cluster_stage{age}.json',
               {'ambientocclusion': False, 'textures': {'particle': tex, 'cluster': tex},
                'elements': [_element(e) for e in cluster.elements()]})
-    write(f'assets/{NS}/items/date.json', {'model': {'type': 'minecraft:model', 'model': f'{NS}:item/date'}})
     write(f'assets/{NS}/models/item/date.json', {'parent': 'minecraft:item/generated', 'textures': {'layer0': f'{NS}:item/date'}})
     write(f'data/{NS}/loot_table/blocks/date_cluster.json', ripe_drops(f'{NS}:date_cluster', f'{NS}:date'))
     # hung into jungle leaves by the mod; only fires near jungle wood, which is what the palms are made of

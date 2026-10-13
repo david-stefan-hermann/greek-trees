@@ -1,8 +1,8 @@
-"""Renders the trees the mod grew on the dev server (run/greektrees-selftest/<species>_<n>.json).
+"""Renders the trees the mod grew on the dev server (run-1.21.1/greektrees-selftest/<species>_<n>.json).
 
 python render_selftest.py                -> selftest_trees.png (first growth of every species)
 python render_selftest.py olive date_palm -> selftest_olive.png, selftest_date_palm.png (six growths each)
-python render_selftest.py drafts p1 w1    -> drafts_p1.png, drafts_w1.png (run/greektrees-drafts/, the rounds
+python render_selftest.py drafts p1 w1    -> drafts_p1.png, drafts_w1.png (run-1.21.1/greektrees-drafts/, the rounds
                                              of PLAN-PALME-WEIDE.md written by `./gradlew runServer -Pdrafts=p1,w1`)
 python render_selftest.py trunks          -> willow_trunks.png (the willow trunks rebuilt by hand and rolled ones)
 """
@@ -18,7 +18,7 @@ from make_round5 import scaled
 from make_round6 import drawable
 from make_sheet import F_LABEL, F_TEXT, F_TITLE, GREY, INK, PAPER, sky
 
-DIR = os.path.join('..', 'run', 'greektrees-selftest')
+DIR = os.path.join('..', 'run-1.21.1', 'greektrees-selftest')
 TITLES = {'cypress': 'Zypresse', 'olive': 'Olivenbaum', 'fig': 'Feigenbaum', 'strawberry_tree': 'Erdbeerbaum',
           'date_palm': 'Kretische Dattelpalme', 'large_date_palm': 'Große Dattelpalme', 'mulberry': 'Maulbeerbaum',
           'weeping_willow': 'Trauerweide', 'large_weeping_willow': 'Große Trauerweide', 'aries_oak': 'Widdereiche',
@@ -26,7 +26,7 @@ TITLES = {'cypress': 'Zypresse', 'olive': 'Olivenbaum', 'fig': 'Feigenbaum', 'st
 GIANTS = {'aries_oak': 4, 'aries_oak_weeping': 3}  # drawn smaller, all growths (the self-test grows four)
 
 
-DRAFT_DIR = os.path.join('..', 'run', 'greektrees-drafts')
+DRAFT_DIR = os.path.join('..', 'run-1.21.1', 'greektrees-drafts')
 # The rounds of PLAN-PALME-WEIDE.md (shapes from greektrees.tree.Drafts): title, subtitle, (letter, name, what).
 DRAFTS = {
     'p1': ('Dattelpalme · Runde P1: die Krone',
@@ -249,7 +249,7 @@ REFERENCES = {'small_1': 5, 'small_2': 9, 'small_3': 9, 'big_1': 11, 'big_2': 10
 
 def trunk_sheet():
     """willow_trunks.png: the six trunks rebuilt by hand, below them nine rolled thin and nine rolled big trunks
-    (run/greektrees-selftest/willow_trunk_roll_*.json, written by the self-test)."""
+    (run-1.21.1/greektrees-selftest/willow_trunk_roll_*.json, written by the self-test)."""
     rows = [('Von Hand umgebaut (Referenz)',
              [(n.replace('_', ' '), joined({p: b for p, b in load('willow_trunk_' + n, 'reference').items()
                                             if voxel.is_log(b[0])}, th)) for n, th in REFERENCES.items()]),

@@ -2,8 +2,12 @@
   "type": "minecraft:crafting_shapeless",
   "category": "misc",
   "ingredients": [
-    "minecraft:jungle_sapling",
-    "minecraft:cocoa_beans"
+    {
+      "item": "minecraft:jungle_sapling"
+    },
+    {
+      "item": "minecraft:cocoa_beans"
+    }
   ],
   "result": {
     "id": "greektrees:date_palm_sapling"

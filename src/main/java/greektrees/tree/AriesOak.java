@@ -358,7 +358,7 @@ public final class AriesOak {
                 BlockPos m = new BlockPos(x, y, z);
                 if (y != Integer.MIN_VALUE && free(m) && free(m.above()) && room.contains(m) && room.contains(m.above())) {
                     t.put(x, y, z, Blocks.MOSS_BLOCK.defaultBlockState());
-                    t.put(x, y + 1, z, Blocks.FIREFLY_BUSH.defaultBlockState());
+                    t.put(x, y + 1, z, Blocks.FERN.defaultBlockState());
                     break;
                 }
             }

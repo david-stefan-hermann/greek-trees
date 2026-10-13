@@ -14,7 +14,7 @@ import zipfile
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 from make_fruits import item  # noqa: E402
-from recipes import recipe_unlock  # noqa: E402
+from recipes import ingredient, recipe_unlock  # noqa: E402
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 ASSETS = os.path.join(ROOT, 'src', 'main', 'resources', 'assets', 'greektrees')
@@ -42,7 +42,7 @@ def write_all(write):
     ingredients = ['minecraft:book', f'#{NS}:saplings']  # the tag is written by make_resources.py
     write(f'data/{NS}/recipe/guide_book.json', {
         'type': 'minecraft:crafting_shapeless', 'category': 'misc',
-        'ingredients': ingredients, 'result': {'id': f'{NS}:guide_book'}})
+        'ingredients': [ingredient(i) for i in ingredients], 'result': {'id': f'{NS}:guide_book'}})
     recipe_unlock(write, f'{NS}:guide_book', ingredients)
     lang = {f'item.{NS}.guide_book': ('Greek Trees Guide', 'Baumkunde: Griechische Bäume')}
     for key, texts in TEXTS.items():
@@ -106,18 +106,18 @@ TEXTS = {
                         'Datteln am Stamm, direkt unter der Krone. 3 Hunger.'),
 
     'mulberry.name': ('Mulberry Tree', 'Maulbeerbaum'),
-    'mulberry.about': ('Short thick trunk under a dense round dome, 10–11 high. Pale oak wood, jungle leaves.',
-                       'Kurzer, dicker Stamm unter dichter, runder Krone, 10–11 hoch. Blasseichenholz, Tropenlaub.'),
+    'mulberry.about': ('Short thick trunk under a dense round dome, 10–11 high. Acacia wood, jungle leaves.',
+                       'Kurzer, dicker Stamm unter dichter, runder Krone, 10–11 hoch. Akazienholz, Tropenlaub.'),
     'mulberry.lore': ('Once white, the berries turned dark with the blood of Pyramus.',
                       'Einst weiß, färbte das Blut des Pyramus die Beeren dunkel.'),
     'mulberry.fruit': ('Black, white or red mulberries, one kind per tree. 2 hunger.',
                        'Schwarze, weiße oder rote Maulbeeren, je Baum eine Sorte. 2 Hunger.'),
 
     'weeping_willow.name': ('Weeping Willow', 'Trauerweide'),
-    'weeping_willow.about': ('Softly bent trunk, a curtain of leaf strands with room inside, 11–21 high. Pale oak '
-                             'wood, mangrove leaves, vines.',
+    'weeping_willow.about': ('Softly bent trunk, a curtain of leaf strands with room inside, 11–21 high. '
+                             'Acacia wood, mangrove leaves, vines.',
                              'Sanft gebogener Stamm, ein Vorhang aus Laubsträngen mit Raum darunter, 11–21 hoch. '
-                             'Blasseichenholz, Mangrovenlaub, Ranken.'),
+                             'Akazienholz, Mangrovenlaub, Ranken.'),
     'weeping_willow.lore': ('Orpheus carried a willow branch into the underworld.',
                             'Orpheus trug einen Weidenzweig in die Unterwelt.'),
     'weeping_willow.plant': ('Plant on dirt or grass. Grows with light or bone meal. Four in a square grow a big '
@@ -186,7 +186,7 @@ def tree_picture(voxel, voxels, size=PIC):
 
 # ---------------------------------------------------------------- item texture
 
-JAR = os.path.expanduser('~/.gradle/caches/fabric-loom/26.2/minecraft-client.jar')
+JAR = os.path.expanduser('~/.gradle/caches/fabric-loom/1.21.1/minecraft-client.jar')
 # vanilla book colours -> the mod icon's: blue cover, dark blue edges and lines, cream pages
 BOOK_COLOURS = {(0x31, 0x21, 0x04): (16, 34, 72), (0x16, 0x10, 0x05): (8, 18, 40), (0x52, 0x2e, 0x10): (30, 66, 128),
                 (0x54, 0x3e, 0x13): (36, 78, 146), (0x65, 0x4b, 0x17): BLUE, (0x44, 0x25, 0x0a): DBLUE,

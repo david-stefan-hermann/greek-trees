@@ -1,6 +1,16 @@
 """Recipe-book unlocks for the recipes of make_resources.py and make_fruits.py."""
 
 NS = 'greektrees'
+# Minecraft 1.21.1 has no pale oak: the trunk of the mulberry and the willow is acacia wood, grey as well
+# (TreeShapes.PALE_WOOD). A birch sapling stands in for the pale oak sapling in their recipes: with an acacia sapling
+# the mulberry's recipe would be the strawberry tree's.
+PALE_WOOD = 'minecraft:acacia_wood'
+PALE_SAPLING = 'minecraft:birch_sapling'
+
+
+def ingredient(item):
+    """An ingredient the way 1.21.1 reads it: an object naming the item or the tag."""
+    return {'tag': item[1:]} if item.startswith('#') else {'item': item}
 
 
 def recipe_unlock(write, recipe_id, items):

@@ -10,6 +10,7 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.storage.loot.LootContext;
 import net.minecraft.world.level.storage.loot.parameters.LootContextParams;
 import net.minecraft.world.level.storage.loot.predicates.LootItemCondition;
+import net.minecraft.world.level.storage.loot.predicates.LootItemConditionType;
 import net.minecraft.world.phys.Vec3;
 
 /**
@@ -25,13 +26,13 @@ public record NearBlock(Block block) implements LootItemCondition {
     private static final int RADIUS = 5;
 
     @Override
-    public MapCodec<NearBlock> codec() {
-        return CODEC;
+    public LootItemConditionType getType() {
+        return GreekTrees.NEAR_BLOCK;
     }
 
     @Override
     public boolean test(LootContext context) {
-        Vec3 origin = context.getOptionalParameter(LootContextParams.ORIGIN);
+        Vec3 origin = context.getParamOrNull(LootContextParams.ORIGIN);
         if (origin == null) {
             return false;
         }

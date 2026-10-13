@@ -10,15 +10,15 @@ import net.minecraft.sounds.SoundSource;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.InteractionHand;
-import net.minecraft.world.InteractionResult;
+import net.minecraft.world.ItemInteractionResult;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.LevelReader;
-import net.minecraft.world.level.ScheduledTickAccess;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.BonemealableBlock;
 import net.minecraft.world.level.block.Blocks;
@@ -78,13 +78,12 @@ public class HangingFruitBlock extends Block implements BonemealableBlock {
     }
 
     @Override
-    protected BlockState updateShape(BlockState state, LevelReader level, ScheduledTickAccess ticks, BlockPos pos,
-                                     Direction direction, BlockPos neighbourPos, BlockState neighbour,
-                                     RandomSource random) {
+    protected BlockState updateShape(BlockState state, Direction direction, BlockState neighbour, LevelAccessor level,
+                                     BlockPos pos, BlockPos neighbourPos) {
         if (direction == Direction.UP && !state.canSurvive(level, pos)) {
             return Blocks.AIR.defaultBlockState();
         }
-        return super.updateShape(state, level, ticks, pos, direction, neighbourPos, neighbour, random);
+        return super.updateShape(state, direction, neighbour, level, pos, neighbourPos);
     }
 
     @Override
@@ -101,8 +100,8 @@ public class HangingFruitBlock extends Block implements BonemealableBlock {
 
     /** Every right click lands here, with or without something in the hand (the server asks the block first). */
     @Override
-    protected InteractionResult useItemOn(ItemStack held, BlockState state, Level level, BlockPos pos, Player player,
-                                          InteractionHand hand, BlockHitResult hit) {
+    protected ItemInteractionResult useItemOn(ItemStack held, BlockState state, Level level, BlockPos pos,
+                                              Player player, InteractionHand hand, BlockHitResult hit) {
         return rightClick(held, state, level, pos, player, STAGE);
     }
 
@@ -111,15 +110,16 @@ public class HangingFruitBlock extends Block implements BonemealableBlock {
      * unripe, nothing happens. CONSUME ends the click quietly, so the held item is neither used on the block (no
      * twig planted next to it) nor eaten; only bone meal is let through, so it still makes the fruit grow.
      */
-    static InteractionResult rightClick(ItemStack held, BlockState state, Level level, BlockPos pos, Player player,
-                                        IntegerProperty age) {
+    static ItemInteractionResult rightClick(ItemStack held, BlockState state, Level level, BlockPos pos, Player player,
+                                            IntegerProperty age) {
         if (state.getValue(age) < MAX_AGE) {
-            return held.is(Items.BONE_MEAL) ? InteractionResult.PASS : InteractionResult.CONSUME;
+            return held.is(Items.BONE_MEAL) ? ItemInteractionResult.SKIP_DEFAULT_BLOCK_INTERACTION
+                    : ItemInteractionResult.CONSUME;
         }
         if (level instanceof ServerLevel server) {
             pick(server, pos, state, age, new ItemStack(state.getBlock().asItem()), player);
         }
-        return InteractionResult.SUCCESS;
+        return ItemInteractionResult.sidedSuccess(level.isClientSide());
     }
 
     /**

@@ -29,7 +29,7 @@ public class AriesOakSaplingBlock extends GreekSaplingBlock {
     public static final ResourceKey<ConfiguredFeature<?, ?>> TREE = ResourceKey.create(Registries.CONFIGURED_FEATURE,
             GreekTrees.id("aries_oak"));
     /** Grows nothing by itself: the square is handled in {@link #advanceTree}. */
-    private static final TreeGrower SQUARE_ONLY = new TreeGrower(TREE.identifier().toString(), Optional.empty(),
+    private static final TreeGrower SQUARE_ONLY = new TreeGrower(TREE.location().toString(), Optional.empty(),
             Optional.empty(), Optional.empty());
     private static final int SIZE = 4;
 

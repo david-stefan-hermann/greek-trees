@@ -2,9 +2,15 @@
   "type": "minecraft:crafting_shapeless",
   "category": "misc",
   "ingredients": [
-    "minecraft:acacia_sapling",
-    "minecraft:acacia_sapling",
-    "minecraft:sweet_berries"
+    {
+      "item": "minecraft:acacia_sapling"
+    },
+    {
+      "item": "minecraft:acacia_sapling"
+    },
+    {
+      "item": "minecraft:sweet_berries"
+    }
   ],
   "result": {
     "id": "greektrees:fig_sapling"

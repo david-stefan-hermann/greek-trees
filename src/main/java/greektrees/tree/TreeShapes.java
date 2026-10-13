@@ -24,6 +24,8 @@ import net.minecraft.world.level.block.state.BlockState;
  * tree feature when a sapling grows, so every growth is different.
  */
 public final class TreeShapes {
+    /** The trunk of the mulberry and the willow: Minecraft 1.21.1 has no pale oak, acacia bark is grey too. */
+    private static final Block PALE_WOOD = Blocks.ACACIA_WOOD;
     private static final int[][] SIDE4 = {{1, 0}, {0, 1}, {-1, 0}, {0, -1}};
     private static final int[][] CORNER4 = {{1, 1}, {-1, 1}, {-1, -1}, {1, -1}};
     private static final int[][] ARM4 = {{2, 0}, {0, 2}, {-2, 0}, {0, -2}};
@@ -291,7 +293,7 @@ public final class TreeShapes {
      */
     public static Shape mulberry(RandomSource r) {
         Shape t = new Shape(r);
-        Block wood = Blocks.PALE_OAK_WOOD, leaves = Blocks.JUNGLE_LEAVES;
+        Block wood = PALE_WOOD, leaves = Blocks.JUNGLE_LEAVES;
         Block twig = GreekTrees.MULBERRY_TWIGS[r.nextInt(GreekTrees.MULBERRY_TWIGS.length)];
         boolean pollard = r.nextDouble() < 0.3;
         int th = pollard ? randint(r, 3, 4) : randint(r, 2, 3);
@@ -371,7 +373,7 @@ public final class TreeShapes {
      * shape.
      */
     private static void willowCrown(Shape t, RandomSource r, boolean big, double g, int[] trunk) {
-        Block wood = Blocks.PALE_OAK_WOOD, leaves = Blocks.MANGROVE_LEAVES;
+        Block wood = PALE_WOOD, leaves = Blocks.MANGROVE_LEAVES;
         int size = big ? 2 : 1, th = trunk[0];
         double cx = trunk[1] + (size - 1) / 2.0, cz = trunk[2] + (size - 1) / 2.0; // middle of the trunk top
         int top = th + (big ? randint(r, 5, 6) : randint(r, 3, 4)) + Shape.ip(g * 2);
@@ -470,7 +472,7 @@ public final class TreeShapes {
      * the height th and where the top layer stands over the foot: {th, dx, dz}.
      */
     private static int[] willowTrunk(Shape t, RandomSource r, boolean big, double g) {
-        Block wood = Blocks.PALE_OAK_WOOD;
+        Block wood = PALE_WOOD;
         int size = big ? 2 : 1;
         int th = Math.max(4, (big ? randint(r, 6, 8) : randint(r, 3, 5)) + Shape.ip(g * (big ? 4 : 5)));
         int side = r.nextInt(4);

@@ -7,11 +7,11 @@
       },
       "trigger": "minecraft:recipe_unlocked"
     },
-    "has_pale_oak_sapling": {
+    "has_birch_sapling": {
       "conditions": {
         "items": [
           {
-            "items": "minecraft:pale_oak_sapling"
+            "items": "minecraft:birch_sapling"
           }
         ]
       },
@@ -31,7 +31,7 @@
   "requirements": [
     [
       "has_the_recipe",
-      "has_pale_oak_sapling",
+      "has_birch_sapling",
       "has_azalea"
     ]
   ],

@@ -2,7 +2,7 @@
 
 <img src="src/main/resources/assets/greektrees/icon.png" alt="Greek Trees logo: the olive sapling" width="128" align="right">
 
-Nine Mediterranean trees for Minecraft 26.2 (Fabric), each grown from its own new sapling, six of them with
+Nine Mediterranean trees for Minecraft 1.21.1 (Fabric), each grown from its own new sapling, six of them with
 fruit: **Cypress**, **Olive Tree**, **Fig Tree**, **Strawberry Tree**, **Cretan Date Palm**, **Mulberry Tree**,
 **Weeping Willow**, the large palm and willow that four saplings grow, and the giant **Aries Oak**. The trees
 themselves are built from vanilla blocks only (wood blocks with bark on every face, so no log ends show), and every
@@ -15,7 +15,7 @@ appear in the vanilla tabs.
 
 Get `greektrees-<version>.jar` from [CurseForge](https://www.curseforge.com/minecraft/mc-mods/greek-trees) or the
 [GitHub releases](../../releases) and put it into `mods/` on the client and the server, next to Fabric API. Requires
-Minecraft 26.2, Fabric Loader 0.19.3+ and Java 25.
+Minecraft 1.21.1, Fabric Loader 0.16.14+ and Java 21.
 
 ## The guide book
 
@@ -146,11 +146,11 @@ wood, jungle leaves.
 <img src="docs/trees/mulberry.png" alt="A mulberry tree" width="144" align="right">
 
 Short thick trunk forking low under a dense round dome, 10–11 high; three in ten are pollarded (knobbly fist, flat
-umbrella). Pale oak wood, jungle leaves.
+umbrella). Acacia wood, jungle leaves.
 
 > *Once white, the berries turned dark with the blood of Pyramus.*
 
-**Crafting** – pale oak sapling, sweet berries.
+**Crafting** – birch sapling, sweet berries.
 
 **Planting** – on dirt or grass. Grows with light or bone meal.
 
@@ -164,11 +164,11 @@ umbrella). Pale oak wood, jungle leaves.
 
 A trunk with a soft bend (along an axis or over a corner; now and then out and back like a C), limbs arching out and
 down under a rounded crown over the trunk's top, a curtain of single leaf strands with a room inside, a few vines,
-11–21 high. Pale oak wood, mangrove leaves, vines.
+11–21 high. Acacia wood, mangrove leaves, vines.
 
 > *Orpheus carried a willow branch into the underworld.*
 
-**Crafting** – pale oak sapling, azalea.
+**Crafting** – birch sapling, azalea.
 
 **Planting** – on dirt or grass. Grows with light or bone meal. Four in a square grow a
 [big willow](#large-trees).
@@ -185,7 +185,7 @@ A giant, 53–60 high and about 50–58 wide, with hollow crowns to build in: a 
 and narrowing upwards, with ridges, burls and stubs, slabs evening out the steps of its limbs and, fewer, of the
 trunk, and streaks of stripped bark; five to seven limbs with side branches, each carrying a big hollow side crown
 spanned by twigs that reaches out past a hollow main dome. Dome and side crowns are clean shells of leaves (and moss,
-on the dome) two blocks thick, lumpy on the outside; vines, glow berries and firefly bushes. Its leaves never decay.
+on the dome) two blocks thick, lumpy on the outside; vines, glow berries and ferns. Its leaves never decay.
 Dark oak wood, stripped dark oak wood, dark oak slabs, azalea, flowering azalea and jungle leaves.
 
 > *Like the oak of Dodona, in whose leaves Zeus was heard.*
@@ -236,9 +236,9 @@ three stages on random ticks like cocoa, or with bone meal.
 Breaking the leaves of a grown tree now and then drops its fruit (12 %, more with Fortune; not with shears or Silk
 Touch). The leaves are vanilla blocks, so the mod tells them apart by what is within five blocks: jungle leaves
 near jungle wood (palms), azalea leaves near oak wood (olives), mangrove leaves near stripped acacia wood
-(strawberry trees), jungle leaves near pale oak wood (mulberries, of the kind whose twigs hang nearby), azalea
-leaves near a fig twig (figs; the fig shares wood and leaves with the cypress). Vanilla jungle, azalea, mangrove and
-pale oak trees are made of logs and drop nothing extra, cypress leaves drop no figs and palm leaves no mulberries.
+(strawberry trees), jungle leaves near acacia wood (mulberries, of the kind whose twigs hang nearby), azalea
+leaves near a fig twig (figs; the fig shares wood and leaves with the cypress). Vanilla jungle, azalea and mangrove
+trees are made of logs and drop nothing extra, cypress leaves drop no figs and palm leaves no mulberries.
 Leaves that decay after all of the tree's wood is gone drop no fruit.
 
 Right-click harvest mods: the twigs keep their ripeness in a property called `stage`, not `age`, because such mods
@@ -254,19 +254,19 @@ hearts. Both break on impact.
 <!-- listing:skip -->
 ## Building
 
-Java 25, `./gradlew build` → `build/libs/greektrees-<version>.jar`. Needs Fabric API on client and server, and
+JDK 25 to run Gradle (the jar is built for Java 21), `./gradlew build` → `build/libs/greektrees-<version>.jar`. Needs Fabric API on client and server, and
 [bcf-guide-book-lib](https://github.com/david-stefan-hermann/bcf-guide-book-lib) in the local Maven repository first:
 `./gradlew publishToMavenLocal` in a checkout of it.
 
 `./gradlew runServer -PselfTest` grows every sapling a dozen times on a fresh dev-server world, lets vanilla
 recompute and decay the leaves, checks blocked growth, sand planting, recipes, the fruit (drops, picking, leaf
 drops), the olive pits (flight, damage), the creative tab and the guide book (recipe, gift, every text in both
-languages), writes `run/greektrees-selftest/` and stops. Mods dropped into `run/mods` (a harvest mod, say) are loaded
+languages), writes `run-1.21.1/greektrees-selftest/` and stops. Mods dropped into `run-1.21.1/mods` (a harvest mod, say) are loaded
 too and listed in the summary, so the right-click checks can be run against them.
 
 `./gradlew runClient -PbookShots` saves every page of the guide book to
-`run/screenshots/book_greektrees_<language>_<nr>.png` (it joins the world `run/saves/bookshots`; the language comes
-from `run/options.txt`). The book's content is data in `src/main/java/greektrees/GuideBook.java` with the texts
+`run-1.21.1/screenshots/book_greektrees_<language>_<nr>.png` (it joins the world `run-1.21.1/saves/bookshots`; the
+language comes from `run-1.21.1/options.txt`). The book's content is data in `src/main/java/greektrees/GuideBook.java` with the texts
 written by `tools/make_book.py`; its screen comes from bcf-guide-book-lib. `java tools/MakeDocs.java <book shot>`
 makes the pictures of this page from the book's.
 

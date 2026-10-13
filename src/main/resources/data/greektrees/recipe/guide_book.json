@@ -2,8 +2,12 @@
   "type": "minecraft:crafting_shapeless",
   "category": "misc",
   "ingredients": [
-    "minecraft:book",
-    "#greektrees:saplings"
+    {
+      "item": "minecraft:book"
+    },
+    {
+      "tag": "greektrees:saplings"
+    }
   ],
   "result": {
     "id": "greektrees:guide_book"

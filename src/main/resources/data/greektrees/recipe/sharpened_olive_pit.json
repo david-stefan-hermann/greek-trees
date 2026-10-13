@@ -6,7 +6,9 @@
     "#"
   ],
   "key": {
-    "#": "greektrees:olive_pit"
+    "#": {
+      "item": "greektrees:olive_pit"
+    }
   },
   "result": {
     "id": "greektrees:sharpened_olive_pit"

@@ -35,7 +35,7 @@
         },
         {
           "condition": "greektrees:near_block",
-          "block": "minecraft:pale_oak_wood"
+          "block": "minecraft:acacia_wood"
         },
         {
           "condition": "greektrees:near_block",

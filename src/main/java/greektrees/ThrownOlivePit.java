@@ -4,10 +4,9 @@ import net.minecraft.core.particles.ItemParticleOption;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.entity.projectile.throwableitemprojectile.ThrowableItemProjectile;
+import net.minecraft.world.entity.projectile.ThrowableItemProjectile;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.ItemStackTemplate;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.EntityHitResult;
 import net.minecraft.world.phys.HitResult;
@@ -27,11 +26,13 @@ public class ThrownOlivePit extends ThrowableItemProjectile {
     }
 
     public ThrownOlivePit(Level level, LivingEntity owner, ItemStack stack) {
-        super(GreekTrees.OLIVE_PIT_ENTITY, owner, level, stack);
+        super(GreekTrees.OLIVE_PIT_ENTITY, owner, level);
+        setItem(stack);
     }
 
     public ThrownOlivePit(Level level, double x, double y, double z, ItemStack stack) {
-        super(GreekTrees.OLIVE_PIT_ENTITY, x, y, z, level, stack);
+        super(GreekTrees.OLIVE_PIT_ENTITY, x, y, z, level);
+        setItem(stack);
     }
 
     @Override
@@ -46,7 +47,7 @@ public class ThrownOlivePit extends ThrowableItemProjectile {
             return;
         }
         ItemStack stack = getItem().isEmpty() ? new ItemStack(getDefaultItem()) : getItem();
-        ItemParticleOption particle = new ItemParticleOption(ParticleTypes.ITEM, ItemStackTemplate.fromNonEmptyStack(stack));
+        ItemParticleOption particle = new ItemParticleOption(ParticleTypes.ITEM, stack);
         for (int i = 0; i < 8; i++) {
             level().addParticle(particle, getX(), getY(), getZ(), 0.0, 0.0, 0.0);
         }

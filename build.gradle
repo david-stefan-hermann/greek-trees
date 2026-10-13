@@ -1,5 +1,5 @@
 plugins {
-    id 'net.fabricmc.fabric-loom' version '1.17.0-alpha.7'
+    id 'net.fabricmc.fabric-loom-remap' version '1.18.4'
     id 'me.modmuss50.mod-publish-plugin' version '1.0.0'
 }
 
@@ -18,16 +18,27 @@ repositories {
 
 dependencies {
     minecraft "com.mojang:minecraft:${project.minecraft_version}"
-    implementation "net.fabricmc:fabric-loader:${project.loader_version}"
-    implementation "net.fabricmc.fabric-api:fabric-api:${project.fabric_version}"
+    mappings loom.officialMojangMappings()
+    modImplementation "net.fabricmc:fabric-loader:${project.loader_version}"
+    modImplementation "net.fabricmc.fabric-api:fabric-api:${project.fabric_version}"
 
     // The guide book's screen (bundled as a nested jar).
-    implementation "de.baconcakefactory:bcf-guide-book-lib:${project.guide_book_version}"
+    modImplementation "de.baconcakefactory:bcf-guide-book-lib:${project.guide_book_version}"
     include "de.baconcakefactory:bcf-guide-book-lib:${project.guide_book_version}"
 }
 
+// The dev game of this branch lives in run-1.21.1/: run/ holds the worlds of the newer Minecraft versions, which
+// 1.21.1 cannot open.
+loom {
+    runs {
+        configureEach {
+            runDir = "run-1.21.1"
+        }
+    }
+}
+
 // `./gradlew runServer -PselfTest`: the dev server grows every sapling a number of times on platforms high above
-// spawn, lets vanilla recompute and decay the leaves, writes run/greektrees-selftest/ and shuts down
+// spawn, lets vanilla recompute and decay the leaves, writes run-1.21.1/greektrees-selftest/ and shuts down
 // (see greektrees.DevSelfTest). The server saves its world on the way out, so every test starts from a new one:
 // the trees of the last run would stand in the way.
 if (project.hasProperty('selfTest')) {
@@ -40,12 +51,12 @@ if (project.hasProperty('selfTest')) {
     }
     tasks.named('runServer') {
         doFirst {
-            delete file('run/world')
+            delete file('run-1.21.1/world')
         }
     }
 }
 
-// `./gradlew runServer -Pdrafts=p1,w1`: writes the draft rounds of greektrees.tree.Drafts to run/greektrees-drafts/
+// `./gradlew runServer -Pdrafts=p1,w1`: writes the draft rounds of greektrees.tree.Drafts to run-1.21.1/greektrees-drafts/
 // and exits (see PLAN-PALME-WEIDE.md); `cd concept && python render_selftest.py drafts p1 w1` draws them.
 if (project.hasProperty('drafts')) {
     loom {
@@ -57,12 +68,12 @@ if (project.hasProperty('drafts')) {
     }
 }
 
-// `./gradlew runClient -PbookShots`: the dev client joins the world run/saves/bookshots (a copy of run/world will
+// `./gradlew runClient -PbookShots`: the dev client joins the world run-1.21.1/saves/bookshots (a copy of run-1.21.1/world will
 // do; item stacks need a world's registries, the title screen has none), opens every page of the guide book, saves
-// run/screenshots/book_greektrees_<language>_<nr>.png and quits (see GuideBookClient in bcf-guide-book-lib). The
-// language and GUI scale come from run/options.txt (lang:de_de, guiScale:2; pauseOnLostFocus:false keeps the pause
+// run-1.21.1/screenshots/book_greektrees_<language>_<nr>.png and quits (see GuideBookClient in bcf-guide-book-lib). The
+// language and GUI scale come from run-1.21.1/options.txt (lang:de_de, guiScale:2; pauseOnLostFocus:false keeps the pause
 // menu away); 1280 x 720 is GUI scale 3 on auto. `-PbookShots=greektrees,<modid>` also goes through the books of
-// other mods dropped into run/mods.
+// other mods dropped into run-1.21.1/mods.
 if (project.hasProperty('bookShots')) {
     loom {
         runs {
@@ -70,6 +81,21 @@ if (project.hasProperty('bookShots')) {
                 vmArg "-Dbcf.guidebook.shots=${project.bookShots ?: 'greektrees'}"
                 programArgs "--quickPlaySingleplayer", "bookshots"
                 programArgs "--width", "1280", "--height", project.hasProperty('bookShotsHeight') ? project.bookShotsHeight : "720"
+            }
+        }
+    }
+}
+
+// `./gradlew runClient -PdevShots`: the dev client joins the world run-1.21.1/saves/bookshots, builds a row of every
+// sapling, twig and date cluster and three trees, saves run-1.21.1/screenshots/shot_*.png and quits (see
+// greektrees.DevShots).
+if (project.hasProperty('devShots')) {
+    loom {
+        runs {
+            client {
+                vmArg "-Dgreektrees.shots=true"
+                programArgs "--quickPlaySingleplayer", "bookshots"
+                programArgs "--width", "1280", "--height", "720"
             }
         }
     }
@@ -86,7 +112,7 @@ processResources {
     }
 }
 
-def targetJavaVersion = 25
+def targetJavaVersion = 21
 tasks.withType(JavaCompile).configureEach {
     it.options.encoding = "UTF-8"
     it.options.release = targetJavaVersion
@@ -113,7 +139,7 @@ jar {
 // ~/.gradle/gradle.properties (gt.curseforge.token / gt.curseforge.projectId), never in the repository.
 // Without a project id nothing is uploaded. The changelog is the top section of CHANGELOG.md.
 publishMods {
-    file = tasks.named('jar').flatMap { it.archiveFile }
+    file = tasks.named('remapJar').flatMap { it.archiveFile }
     changelog = provider { topChangelogSection() }
     type = STABLE
     displayName = "Greek Trees ${project.version}"
@@ -125,7 +151,7 @@ publishMods {
             accessToken = providers.gradleProperty("gt.curseforge.token")
             projectId = providers.gradleProperty("gt.curseforge.projectId")
             minecraftVersions.add(project.minecraft_version)
-            javaVersions.add(JavaVersion.VERSION_25)
+            javaVersions.add(JavaVersion.VERSION_21)
             clientRequired = true
             serverRequired = true
             requires("fabric-api")

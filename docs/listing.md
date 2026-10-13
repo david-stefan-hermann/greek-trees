@@ -1,19 +1,19 @@
 # Greek Trees
 
-Nine Mediterranean trees for Minecraft 26.2 (Fabric), each grown from its own new sapling, six of them with
+Nine Mediterranean trees for Minecraft 1.21.1 (Fabric), each grown from its own new sapling, six of them with
 fruit: **Cypress**, **Olive Tree**, **Fig Tree**, **Strawberry Tree**, **Cretan Date Palm**, **Mulberry Tree**,
 **Weeping Willow**, the large palm and willow that four saplings grow, and the giant **Aries Oak**. The trees
 themselves are built from vanilla blocks only (wood blocks with bark on every face, so no log ends show), and every
 growth rolls a new shape. Everything is in its own creative tab, *Greek Trees*; the saplings, fruit and pits also
 appear in the vanilla tabs.
 
-![The eight trees as the guide book shows them: cypress, olive, fig, strawberry tree, date palm, mulberry, weeping willow, Aries oak](https://raw.githubusercontent.com/david-stefan-hermann/greek-trees/26.2/docs/trees.png)
+![The eight trees as the guide book shows them: cypress, olive, fig, strawberry tree, date palm, mulberry, weeping willow, Aries oak](https://raw.githubusercontent.com/david-stefan-hermann/greek-trees/1.21.1/docs/trees.png)
 
 ## Download
 
 Get `greektrees-<version>.jar` from [CurseForge](https://www.curseforge.com/minecraft/mc-mods/greek-trees) or the
 [GitHub releases](https://github.com/david-stefan-hermann/greek-trees/releases) and put it into `mods/` on the client and the server, next to Fabric API. Requires
-Minecraft 26.2, Fabric Loader 0.19.3+ and Java 25.
+Minecraft 1.21.1, Fabric Loader 0.16.14+ and Java 21.
 
 ## The guide book
 
@@ -24,7 +24,7 @@ Lost it? Craft a new one from a book and any of the mod's saplings (shapeless), 
 
 This page follows the book chapter by chapter and adds the details that do not fit on its pages.
 
-![The guide book open on the Olive Tree chapter](https://raw.githubusercontent.com/david-stefan-hermann/greek-trees/26.2/docs/book.png)
+![The guide book open on the Olive Tree chapter](https://raw.githubusercontent.com/david-stefan-hermann/greek-trees/1.21.1/docs/book.png)
 
 ## Basics
 
@@ -44,7 +44,7 @@ dice ranges of every tree are listed in `VARIATIONEN.md` (German).
 
 ## Cypress
 
-![A cypress](https://raw.githubusercontent.com/david-stefan-hermann/greek-trees/26.2/docs/trees/cypress.png)
+![A cypress](https://raw.githubusercontent.com/david-stefan-hermann/greek-trees/1.21.1/docs/trees/cypress.png)
 
 Tall, narrow column with a single-block spire, 21–23 high. Acacia wood, azalea leaves.
 
@@ -58,7 +58,7 @@ Tall, narrow column with a single-block spire, 21–23 high. Acacia wood, azalea
 
 ## Olive Tree
 
-![An olive tree](https://raw.githubusercontent.com/david-stefan-hermann/greek-trees/26.2/docs/trees/olive.png)
+![An olive tree](https://raw.githubusercontent.com/david-stefan-hermann/greek-trees/1.21.1/docs/trees/olive.png)
 
 Short forked trunk with roots on the ground, crowns at different heights, 8–12 high. Oak wood, azalea leaves.
 
@@ -73,7 +73,7 @@ Olive Pit.
 
 ## Fig Tree
 
-![A fig tree](https://raw.githubusercontent.com/david-stefan-hermann/greek-trees/26.2/docs/trees/fig.png)
+![A fig tree](https://raw.githubusercontent.com/david-stefan-hermann/greek-trees/1.21.1/docs/trees/fig.png)
 
 Low and wide, several stems from the ground, 7 high. Acacia wood, azalea leaves.
 
@@ -87,7 +87,7 @@ Low and wide, several stems from the ground, 7 high. Acacia wood, azalea leaves.
 
 ## Strawberry Tree
 
-![A strawberry tree](https://raw.githubusercontent.com/david-stefan-hermann/greek-trees/26.2/docs/trees/strawberry_tree.png)
+![A strawberry tree](https://raw.githubusercontent.com/david-stefan-hermann/greek-trees/1.21.1/docs/trees/strawberry_tree.png)
 
 Thin orange-red stems, open dark crown, 10–11 high. Stripped acacia wood, mangrove leaves.
 
@@ -101,7 +101,7 @@ Thin orange-red stems, open dark crown, 10–11 high. Stripped acacia wood, mang
 
 ## Cretan Date Palm
 
-![A Cretan date palm](https://raw.githubusercontent.com/david-stefan-hermann/greek-trees/26.2/docs/trees/date_palm.png)
+![A Cretan date palm](https://raw.githubusercontent.com/david-stefan-hermann/greek-trees/1.21.1/docs/trees/date_palm.png)
 
 One to three slim trunks within a 2x2 square (two on a diagonal, three in an L), each leaning to its own side only,
 bent near the crown, bent at the foot or slanted, no two alike, 15–18 high. On every trunk a star of fine fronds
@@ -118,14 +118,14 @@ wood, jungle leaves.
 
 ## Mulberry Tree
 
-![A mulberry tree](https://raw.githubusercontent.com/david-stefan-hermann/greek-trees/26.2/docs/trees/mulberry.png)
+![A mulberry tree](https://raw.githubusercontent.com/david-stefan-hermann/greek-trees/1.21.1/docs/trees/mulberry.png)
 
 Short thick trunk forking low under a dense round dome, 10–11 high; three in ten are pollarded (knobbly fist, flat
-umbrella). Pale oak wood, jungle leaves.
+umbrella). Acacia wood, jungle leaves.
 
 > *Once white, the berries turned dark with the blood of Pyramus.*
 
-**Crafting** – pale oak sapling, sweet berries.
+**Crafting** – birch sapling, sweet berries.
 
 **Planting** – on dirt or grass. Grows with light or bone meal.
 
@@ -133,15 +133,15 @@ umbrella). Pale oak wood, jungle leaves.
 
 ## Weeping Willow
 
-![A weeping willow](https://raw.githubusercontent.com/david-stefan-hermann/greek-trees/26.2/docs/trees/weeping_willow.png)
+![A weeping willow](https://raw.githubusercontent.com/david-stefan-hermann/greek-trees/1.21.1/docs/trees/weeping_willow.png)
 
 A trunk with a soft bend (along an axis or over a corner; now and then out and back like a C), limbs arching out and
 down under a rounded crown over the trunk's top, a curtain of single leaf strands with a room inside, a few vines,
-11–21 high. Pale oak wood, mangrove leaves, vines.
+11–21 high. Acacia wood, mangrove leaves, vines.
 
 > *Orpheus carried a willow branch into the underworld.*
 
-**Crafting** – pale oak sapling, azalea.
+**Crafting** – birch sapling, azalea.
 
 **Planting** – on dirt or grass. Grows with light or bone meal. Four in a square grow a
 big willow.
@@ -150,13 +150,13 @@ big willow.
 
 ## Aries Oak
 
-![An Aries oak](https://raw.githubusercontent.com/david-stefan-hermann/greek-trees/26.2/docs/trees/aries_oak.png)
+![An Aries oak](https://raw.githubusercontent.com/david-stefan-hermann/greek-trees/1.21.1/docs/trees/aries_oak.png)
 
 A giant, 53–60 high and about 50–58 wide, with hollow crowns to build in: a round trunk, wide and flared at the foot
 and narrowing upwards, with ridges, burls and stubs, slabs evening out the steps of its limbs and, fewer, of the
 trunk, and streaks of stripped bark; five to seven limbs with side branches, each carrying a big hollow side crown
 spanned by twigs that reaches out past a hollow main dome. Dome and side crowns are clean shells of leaves (and moss,
-on the dome) two blocks thick, lumpy on the outside; vines, glow berries and firefly bushes. Its leaves never decay.
+on the dome) two blocks thick, lumpy on the outside; vines, glow berries and ferns. Its leaves never decay.
 Dark oak wood, stripped dark oak wood, dark oak slabs, azalea, flowering azalea and jungle leaves.
 
 > *Like the oak of Dodona, in whose leaves Zeus was heard.*
@@ -176,8 +176,8 @@ Like a vanilla dark oak, four date palm or four weeping willow saplings in a squ
 
 | | |
 |---|---|
-| ![A large date palm](https://raw.githubusercontent.com/david-stefan-hermann/greek-trees/26.2/docs/trees/large_date_palm.png) | **Large Date Palm** – two to five tall trunks slanting apart, 19–27 high. |
-| ![A big weeping willow](https://raw.githubusercontent.com/david-stefan-hermann/greek-trees/26.2/docs/trees/large_weeping_willow.png) | **Big Weeping Willow** – a 2×2 trunk bending the same way as the small one, its steps spread over a few layers, and more strands along the rim, 15–25 high. |
+| ![A large date palm](https://raw.githubusercontent.com/david-stefan-hermann/greek-trees/1.21.1/docs/trees/large_date_palm.png) | **Large Date Palm** – two to five tall trunks slanting apart, 19–27 high. |
+| ![A big weeping willow](https://raw.githubusercontent.com/david-stefan-hermann/greek-trees/1.21.1/docs/trees/large_weeping_willow.png) | **Big Weeping Willow** – a 2×2 trunk bending the same way as the small one, its steps spread over a few layers, and more strands along the rim, 15–25 high. |
 
 ## Fruit
 
@@ -205,9 +205,9 @@ three stages on random ticks like cocoa, or with bone meal.
 Breaking the leaves of a grown tree now and then drops its fruit (12 %, more with Fortune; not with shears or Silk
 Touch). The leaves are vanilla blocks, so the mod tells them apart by what is within five blocks: jungle leaves
 near jungle wood (palms), azalea leaves near oak wood (olives), mangrove leaves near stripped acacia wood
-(strawberry trees), jungle leaves near pale oak wood (mulberries, of the kind whose twigs hang nearby), azalea
-leaves near a fig twig (figs; the fig shares wood and leaves with the cypress). Vanilla jungle, azalea, mangrove and
-pale oak trees are made of logs and drop nothing extra, cypress leaves drop no figs and palm leaves no mulberries.
+(strawberry trees), jungle leaves near acacia wood (mulberries, of the kind whose twigs hang nearby), azalea
+leaves near a fig twig (figs; the fig shares wood and leaves with the cypress). Vanilla jungle, azalea and mangrove
+trees are made of logs and drop nothing extra, cypress leaves drop no figs and palm leaves no mulberries.
 Leaves that decay after all of the tree's wood is gone drop no fruit.
 
 Right-click harvest mods: the twigs keep their ripeness in a property called `stage`, not `age`, because such mods
@@ -226,4 +226,4 @@ Source and issues: https://github.com/david-stefan-hermann/greek-trees
 
 ## License
 
-MIT, see [LICENSE](https://github.com/david-stefan-hermann/greek-trees/blob/26.2/LICENSE). By BaconCakeFactory.
+MIT, see [LICENSE](https://github.com/david-stefan-hermann/greek-trees/blob/1.21.1/LICENSE). By BaconCakeFactory.

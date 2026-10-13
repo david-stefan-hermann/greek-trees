@@ -38,10 +38,10 @@ import net.minecraft.tags.BlockTags;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.item.CreativeModeTab;
+import net.minecraft.world.food.FoodProperties;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
-import net.minecraft.world.item.component.UseRemainder;
 import net.minecraft.world.item.crafting.CraftingInput;
 import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraft.world.level.ItemLike;
@@ -55,9 +55,8 @@ import net.minecraft.world.level.block.SaplingBlock;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.block.state.properties.IntegerProperty;
-import net.minecraft.world.entity.EntitySpawnReason;
-import net.minecraft.world.entity.EntityTypes;
-import net.minecraft.world.entity.animal.pig.Pig;
+import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.animal.Pig;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.EntityHitResult;
@@ -81,8 +80,8 @@ final class DevSelfTest {
             "fig", List.of(Items.SWEET_BERRIES, Items.ACACIA_SAPLING, Items.ACACIA_SAPLING),
             "strawberry_tree", List.of(Items.SWEET_BERRIES, Items.ACACIA_SAPLING),
             "date_palm", List.of(Items.COCOA_BEANS, Items.JUNGLE_SAPLING),
-            "mulberry", List.of(Items.SWEET_BERRIES, Items.PALE_OAK_SAPLING),
-            "weeping_willow", List.of(Items.PALE_OAK_SAPLING, Items.AZALEA),
+            "mulberry", List.of(Items.SWEET_BERRIES, Items.BIRCH_SAPLING),
+            "weeping_willow", List.of(Items.BIRCH_SAPLING, Items.AZALEA),
             "aries_oak", List.of(Items.GLOW_BERRIES, Items.FLOWERING_AZALEA, Items.DARK_OAK_SAPLING));
     /** The fruit blocks a tree may carry when it has grown, one of them per tree (the weeping willow carries none). */
     private static final Map<String, List<Block>> FRUIT = Map.of("olive", List.of(GreekTrees.OLIVE_TWIG),
@@ -337,7 +336,7 @@ final class DevSelfTest {
         List<ItemStack> stacks = ingredients.stream().map(ItemStack::new).toList();
         CraftingInput input = CraftingInput.of(stacks.size(), 1, stacks);
         ItemStack crafted = server.getRecipeManager().getRecipeFor(RecipeType.CRAFTING, input, level)
-                .map(h -> h.value().assemble(input)).orElse(ItemStack.EMPTY);
+                .map(h -> h.value().assemble(input, level.registryAccess())).orElse(ItemStack.EMPTY);
         boolean unlock = server.getAdvancements()
                 .get(GreekTrees.id("recipes/misc/" + species.name() + "_sapling")) != null;
         if (!crafted.is(species.item()) || !unlock) {
@@ -398,7 +397,7 @@ final class DevSelfTest {
         int growths = 4, grown = 0, covered = 0, left = 0, minH = 99, maxH = 0, minW = 99, maxW = 0, logs = 0;
         int leaves = 0, notPersistent = 0, decayed = 0, bonemealOk = 0, room = 0;
         Map<Block, int[]> hanging = new LinkedHashMap<>(); // block -> in all, loose
-        for (Block b : new Block[]{Blocks.VINE, Blocks.CAVE_VINES_PLANT, Blocks.CAVE_VINES, Blocks.FIREFLY_BUSH,
+        for (Block b : new Block[]{Blocks.VINE, Blocks.CAVE_VINES_PLANT, Blocks.CAVE_VINES, Blocks.FERN,
                 Blocks.MOSS_BLOCK, Blocks.DARK_OAK_SLAB}) {
             hanging.put(b, new int[2]);
         }
@@ -599,8 +598,8 @@ final class DevSelfTest {
      */
     private static int twigs(ServerLevel level, List<String> lines) {
         int failures = 0;
-        UseRemainder remainder = new ItemStack(GreekTrees.OLIVE).get(DataComponents.USE_REMAINDER);
-        boolean pitBack = remainder != null && remainder.convertInto().create().is(GreekTrees.OLIVE_PIT);
+        FoodProperties food = new ItemStack(GreekTrees.OLIVE).get(DataComponents.FOOD);
+        boolean pitBack = food != null && food.usingConvertsTo().filter(s -> s.is(GreekTrees.OLIVE_PIT)).isPresent();
         Object[][] twigs = {{GreekTrees.OLIVE_TWIG, GreekTrees.OLIVE, Blocks.AZALEA_LEAVES},
                 {GreekTrees.FIG_TWIG, GreekTrees.FIG, Blocks.AZALEA_LEAVES},
                 {GreekTrees.ARBUTUS_TWIG, GreekTrees.ARBUTUS_BERRY, Blocks.MANGROVE_LEAVES},
@@ -765,7 +764,7 @@ final class DevSelfTest {
         for (int i = 0; i < pits.length; i++) {
             BlockPos ground = new BlockPos(1200 + i * 20, Y, 0);
             platform(level, ground, Blocks.STONE);
-            Pig pig = EntityTypes.PIG.create(level, EntitySpawnReason.COMMAND);
+            Pig pig = EntityType.PIG.create(level);
             pig.setPos(ground.getX() + 0.5, ground.getY(), ground.getZ() + 3.5);
             float before = pig.getHealth();
             ThrownOlivePit pit = (ThrownOlivePit) ((OlivePitItem) pits[i]).asProjectile(level,
@@ -785,7 +784,7 @@ final class DevSelfTest {
         CraftingInput two = CraftingInput.of(1, 2, List.of(new ItemStack(GreekTrees.OLIVE_PIT),
                 new ItemStack(GreekTrees.OLIVE_PIT)));
         ItemStack sharpened = server.getRecipeManager().getRecipeFor(RecipeType.CRAFTING, two, level)
-                .map(h -> h.value().assemble(two)).orElse(ItemStack.EMPTY);
+                .map(h -> h.value().assemble(two, level.registryAccess())).orElse(ItemStack.EMPTY);
         if (!sharpened.is(GreekTrees.SHARPENED_OLIVE_PIT)) {
             failures++;
         }
@@ -1393,7 +1392,7 @@ final class DevSelfTest {
 
     /** The mod's own creative tab lists every sapling and every fruit. */
     private static int creativeTab(ServerLevel level, List<String> lines) {
-        CreativeModeTab tab = BuiltInRegistries.CREATIVE_MODE_TAB.getValue(GreekTrees.id("main"));
+        CreativeModeTab tab = BuiltInRegistries.CREATIVE_MODE_TAB.get(GreekTrees.id("main"));
         if (tab == null) {
             lines.add("creative tab: MISSING");
             return 1;
@@ -1426,7 +1425,7 @@ final class DevSelfTest {
             List<ItemStack> stacks = List.of(new ItemStack(Items.BOOK), new ItemStack(s.item()));
             CraftingInput input = CraftingInput.of(2, 1, stacks);
             if (server.getRecipeManager().getRecipeFor(RecipeType.CRAFTING, input, level)
-                    .map(h -> h.value().assemble(input)).orElse(ItemStack.EMPTY).is(GreekTrees.GUIDE_BOOK)) {
+                    .map(h -> h.value().assemble(input, level.registryAccess())).orElse(ItemStack.EMPTY).is(GreekTrees.GUIDE_BOOK)) {
                 crafted++;
             }
         }
