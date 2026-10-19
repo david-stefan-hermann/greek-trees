@@ -17,10 +17,10 @@ Minecraft 26.2, Fabric Loader 0.19.3+ and Java 25.
 
 ## The guide book
 
-Every player gets a **Greek Trees Guide** the first time they join: a book with a chapter for every tree (what it
-looks like, its recipe, how to plant it, its fruit) and for the large trees, fruit and olive pits, with a picture of
-every tree, in English and German. Right-click opens it; the trees' tabs are on the left, the topics' on the right.
-Lost it? Craft a new one from a book and any of the mod's saplings (shapeless), or take it from the creative tab.
+The **Greek Trees Guide** is a book with a chapter for every tree (what it looks like, its recipe, how to plant it,
+its fruit) and for the large trees, fruit and olive pits, with a picture of every tree, in English and German. Craft
+it from a book and any of the mod's saplings (shapeless), or take it from the creative tab. Right-click opens it, E or
+Escape closes it; the trees' tabs are on the left, the topics' on the right.
 
 This page follows the book chapter by chapter and adds the details that do not fit on its pages.
 

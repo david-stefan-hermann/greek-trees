@@ -1438,19 +1438,16 @@ final class DevSelfTest {
                 crafted, GreekTrees.SPECIES.size(), unlock));
 
         FakePlayer player = FakePlayer.get(level, new GameProfile(UUID.randomUUID(), "guide_book_gift"));
-        GuideBook.BOOK.giveOnce(player);
-        GuideBook.BOOK.giveOnce(player);
+        GuideBook.BOOK.giveOnce(player); // what 1.x of this mod calls on join; the library hands out nothing any more
         int books = 0;
         for (int i = 0; i < player.getInventory().getContainerSize(); i++) {
             ItemStack stack = player.getInventory().getItem(i);
             books += stack.is(GreekTrees.GUIDE_BOOK) ? stack.getCount() : 0;
         }
-        boolean marked = player.hasAttached(GuideBook.BOOK.gotBook());
-        if (books != 1 || !marked) {
+        if (books != 0) {
             failures++;
         }
-        lines.add(String.format("guide book gift: given twice to a new player, books %d (want 1), marked %s", books,
-                marked));
+        lines.add(String.format("guide book: no welcome gift, books of a new player %d (want 0)", books));
 
         List<Chapter> chapters = GuideBook.BOOK.chapters();
         int trees = 0, matching = 0;

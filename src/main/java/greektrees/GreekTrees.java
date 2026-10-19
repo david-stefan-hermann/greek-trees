@@ -197,7 +197,6 @@ public final class GreekTrees implements ModInitializer {
                 OLIVE_PIT}) {
             CompostableRegistry.INSTANCE.add(fruit, 0.3f); // like sweet berries and seeds
         }
-        GuideBook.BOOK.giveOnJoin();
         DevSelfTest.register();
     }
 
