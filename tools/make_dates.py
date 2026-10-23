@@ -9,10 +9,10 @@ import date_cluster  # noqa: E402
 NS = 'greektrees'
 FACING_Y = {'south': 0, 'west': 90, 'north': 180, 'east': 270}
 NOT_SHEARS_OR_SILK = {
-    'condition': 'minecraft:inverted',
-    'term': {'condition': 'minecraft:any_of', 'terms': [
-        {'condition': 'minecraft:match_tool', 'predicate': {'items': 'minecraft:shears'}},
-        {'condition': 'minecraft:match_tool', 'predicate': {'predicates': {'minecraft:enchantments': [
+    'type': 'minecraft:inverted',
+    'term': {'type': 'minecraft:any_of', 'terms': [
+        {'type': 'minecraft:match_tool', 'predicate': {'items': 'minecraft:shears'}},
+        {'type': 'minecraft:match_tool', 'predicate': {'predicates': {'minecraft:enchantments': [
             {'enchantments': 'minecraft:silk_touch', 'levels': {'min': 1}}]}}},
     ]},
 }
@@ -23,15 +23,15 @@ LEAF_CHANCES = [0.12, 0.135, 0.15, 0.2, 0.45]
 def leaf_fruit_table(name, item, wood):
     """Extra pool the mod hangs into a vanilla leaf table: the fruit now and then, only near the given wood (a block
     id, or a list of ids that must all be near)."""
-    near = [{'condition': f'{NS}:near_block', 'block': b} for b in ([wood] if isinstance(wood, str) else wood)]
+    near = [{'type': f'{NS}:near_block', 'block': b} for b in ([wood] if isinstance(wood, str) else wood)]
     return {
         'type': 'minecraft:block',
-        'pools': [{'rolls': 1.0,
-                   'conditions': [NOT_SHEARS_OR_SILK] + near,
+        'pools': [{'rolls': 1,
+                   'condition': {'type': 'minecraft:all_of', 'terms': [NOT_SHEARS_OR_SILK] + near},
                    'entries': [{'type': 'minecraft:item', 'name': item,
-                                'conditions': [{'condition': 'minecraft:table_bonus', 'enchantment': 'minecraft:fortune',
-                                                'chances': LEAF_CHANCES}],
-                                'functions': [{'function': 'minecraft:explosion_decay'}]}]}],
+                                'condition': {'type': 'minecraft:table_bonus', 'enchantment': 'minecraft:fortune',
+                                              'chances': LEAF_CHANCES},
+                                'modifier': {'type': 'minecraft:explosion_decay'}}]}],
         'random_sequence': f'{NS}:blocks/{name}',
     }
 
@@ -41,13 +41,12 @@ def ripe_drops(block, item, stage='age'):
     cocoa."""
     return {
         'type': 'minecraft:block',
-        'pools': [{'rolls': 1.0, 'entries': [{
+        'pools': [{'rolls': 1, 'entries': [{
             'type': 'minecraft:item', 'name': item,
-            'functions': [
-                {'function': 'minecraft:set_count', 'count': {'type': 'minecraft:uniform', 'min': 2.0, 'max': 3.0},
-                 'conditions': [{'condition': 'minecraft:block_state_property', 'block': block,
-                                 'properties': {stage: '2'}}]},
-                {'function': 'minecraft:explosion_decay'},
+            'modifier': [
+                {'type': 'minecraft:set_count', 'count': {'type': 'minecraft:uniform', 'min': 2, 'max': 3},
+                 'condition': {'type': 'minecraft:match_block', 'blocks': block, 'state': {stage: '2'}}},
+                {'type': 'minecraft:explosion_decay'},
             ]}]}],
         'random_sequence': f'{NS}:blocks/{block.split(":")[1]}',
     }

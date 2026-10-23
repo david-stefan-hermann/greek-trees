@@ -31,7 +31,7 @@ public record NearBlock(Block block) implements LootItemCondition {
 
     @Override
     public boolean test(LootContext context) {
-        Vec3 origin = context.getOptionalParameter(LootContextParams.ORIGIN);
+        Vec3 origin = context.getOptional(LootContextParams.ORIGIN);
         if (origin == null) {
             return false;
         }

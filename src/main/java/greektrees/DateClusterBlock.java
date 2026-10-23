@@ -1,7 +1,5 @@
 package greektrees;
 
-import com.mojang.serialization.MapCodec;
-
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
@@ -24,8 +22,6 @@ import net.minecraft.world.phys.shapes.VoxelShape;
  * is in the hand and starts over, an unripe one ignores the click.
  */
 public class DateClusterBlock extends CocoaBlock {
-    /** Typed as cocoa because CocoaBlock fixes the return type of codec(); it still builds date clusters. */
-    public static final MapCodec<CocoaBlock> CODEC = simpleCodec(DateClusterBlock::new);
     /**
      * Bounding boxes of the three model stages for facing south, trunk at +z (printed by tools/date_cluster.py,
      * rounded outwards). The half ripe and ripe clusters hang below their block.
@@ -35,11 +31,6 @@ public class DateClusterBlock extends CocoaBlock {
 
     public DateClusterBlock(BlockBehaviour.Properties properties) {
         super(properties);
-    }
-
-    @Override
-    public MapCodec<CocoaBlock> codec() {
-        return CODEC;
     }
 
     @Override

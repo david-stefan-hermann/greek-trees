@@ -2,31 +2,29 @@
   "type": "minecraft:block",
   "pools": [
     {
-      "rolls": 1.0,
+      "rolls": 1,
       "entries": [
         {
           "type": "minecraft:item",
           "name": "greektrees:date",
-          "functions": [
+          "modifier": [
             {
-              "function": "minecraft:set_count",
+              "type": "minecraft:set_count",
               "count": {
                 "type": "minecraft:uniform",
-                "min": 2.0,
-                "max": 3.0
+                "min": 2,
+                "max": 3
               },
-              "conditions": [
-                {
-                  "condition": "minecraft:block_state_property",
-                  "block": "greektrees:date_cluster",
-                  "properties": {
-                    "age": "2"
-                  }
+              "condition": {
+                "type": "minecraft:match_block",
+                "blocks": "greektrees:date_cluster",
+                "state": {
+                  "age": "2"
                 }
-              ]
+              }
             },
             {
-              "function": "minecraft:explosion_decay"
+              "type": "minecraft:explosion_decay"
             }
           ]
         }

@@ -2,31 +2,29 @@
   "type": "minecraft:block",
   "pools": [
     {
-      "rolls": 1.0,
+      "rolls": 1,
       "entries": [
         {
           "type": "minecraft:item",
           "name": "greektrees:arbutus_berry",
-          "functions": [
+          "modifier": [
             {
-              "function": "minecraft:set_count",
+              "type": "minecraft:set_count",
               "count": {
                 "type": "minecraft:uniform",
-                "min": 2.0,
-                "max": 3.0
+                "min": 2,
+                "max": 3
               },
-              "conditions": [
-                {
-                  "condition": "minecraft:block_state_property",
-                  "block": "greektrees:arbutus_twig",
-                  "properties": {
-                    "stage": "2"
-                  }
+              "condition": {
+                "type": "minecraft:match_block",
+                "blocks": "greektrees:arbutus_twig",
+                "state": {
+                  "stage": "2"
                 }
-              ]
+              }
             },
             {
-              "function": "minecraft:explosion_decay"
+              "type": "minecraft:explosion_decay"
             }
           ]
         }

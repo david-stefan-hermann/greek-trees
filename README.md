@@ -2,7 +2,7 @@
 
 <img src="src/main/resources/assets/greektrees/icon.png" alt="Greek Trees logo: the olive sapling" width="128" align="right">
 
-Nine Mediterranean trees for Minecraft 26.2 (Fabric), each grown from its own new sapling, six of them with
+Nine Mediterranean trees for Minecraft 26.3 (Fabric), each grown from its own new sapling, six of them with
 fruit: **Cypress**, **Olive Tree**, **Fig Tree**, **Strawberry Tree**, **Cretan Date Palm**, **Mulberry Tree**,
 **Weeping Willow**, the large palm and willow that four saplings grow, and the giant **Aries Oak**. The trees
 themselves are built from vanilla blocks only (wood blocks with bark on every face, so no log ends show), and every
@@ -15,7 +15,7 @@ appear in the vanilla tabs.
 
 Get `greektrees-<version>.jar` from [CurseForge](https://www.curseforge.com/minecraft/mc-mods/greek-trees) or the
 [GitHub releases](../../releases) and put it into `mods/` on the client and the server, next to Fabric API. Requires
-Minecraft 26.2, Fabric Loader 0.19.3+ and Java 25.
+Minecraft 26.3, Fabric Loader 0.19.5+ and Java 25.
 
 ## The guide book
 

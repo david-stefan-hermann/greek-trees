@@ -3,7 +3,7 @@
   "criteria": {
     "has_the_recipe": {
       "conditions": {
-        "recipe": "greektrees:strawberry_tree_sapling"
+        "recipes": "greektrees:strawberry_tree_sapling"
       },
       "trigger": "minecraft:recipe_unlocked"
     },

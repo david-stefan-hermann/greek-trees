@@ -46,6 +46,7 @@ import net.minecraft.world.item.crafting.CraftingInput;
 import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraft.world.level.ItemLike;
 import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.BonemealSource;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.CocoaBlock;
 import net.minecraft.world.level.block.FlowerPotBlock;
@@ -366,7 +367,8 @@ final class DevSelfTest {
         for (int size = 1; size <= 3; size++) {
             BlockPos pos = new BlockPos(x0 + size * 30, Y, -100);
             saplingSquare(level, pos, size, sapling, 0);
-            boolean bonemeal = sapling.isValidBonemealTarget(level, pos, level.getBlockState(pos));
+            boolean bonemeal = sapling.isValidBonemealTarget(level, pos, level.getBlockState(pos),
+                    BonemealSource.INTERACTION);
             for (int dx = 0; dx < size; dx++) {
                 for (int dz = 0; dz < size; dz++) {
                     grow(level, pos.offset(dx, 0, dz), random);
@@ -407,7 +409,8 @@ final class DevSelfTest {
         for (int i = 0; i < growths; i++) {
             BlockPos pos = new BlockPos(x0, Y, i * 100);
             saplingSquare(level, pos, 4, sapling, 30);
-            if (sapling.isValidBonemealTarget(level, pos.offset(3, 0, 3), level.getBlockState(pos.offset(3, 0, 3)))) {
+            if (sapling.isValidBonemealTarget(level, pos.offset(3, 0, 3), level.getBlockState(pos.offset(3, 0, 3)),
+                    BonemealSource.INTERACTION)) {
                 bonemealOk++;
             }
             grow(level, pos.offset(i % 4, 0, (i * 3) % 4), random);

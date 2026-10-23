@@ -3,7 +3,7 @@
   "criteria": {
     "has_the_recipe": {
       "conditions": {
-        "recipe": "greektrees:guide_book"
+        "recipes": "greektrees:guide_book"
       },
       "trigger": "minecraft:recipe_unlocked"
     },

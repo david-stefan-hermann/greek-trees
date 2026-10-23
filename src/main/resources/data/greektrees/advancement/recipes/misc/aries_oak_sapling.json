@@ -3,7 +3,7 @@
   "criteria": {
     "has_the_recipe": {
       "conditions": {
-        "recipe": "greektrees:aries_oak_sapling"
+        "recipes": "greektrees:aries_oak_sapling"
       },
       "trigger": "minecraft:recipe_unlocked"
     },

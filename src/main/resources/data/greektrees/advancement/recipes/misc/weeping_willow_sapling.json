@@ -3,7 +3,7 @@
   "criteria": {
     "has_the_recipe": {
       "conditions": {
-        "recipe": "greektrees:weeping_willow_sapling"
+        "recipes": "greektrees:weeping_willow_sapling"
       },
       "trigger": "minecraft:recipe_unlocked"
     },

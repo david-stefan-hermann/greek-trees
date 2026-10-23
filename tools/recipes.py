@@ -5,7 +5,7 @@ NS = 'greektrees'
 
 def recipe_unlock(write, recipe_id, items):
     """Recipe-book unlock: picking up any of the items unlocks the recipe."""
-    criteria = {'has_the_recipe': {'conditions': {'recipe': recipe_id}, 'trigger': 'minecraft:recipe_unlocked'}}
+    criteria = {'has_the_recipe': {'conditions': {'recipes': recipe_id}, 'trigger': 'minecraft:recipe_unlocked'}}
     for item in dict.fromkeys(items):
         criteria['has_' + item.split(':')[1]] = {'conditions': {'items': [{'items': item}]},
                                                  'trigger': 'minecraft:inventory_changed'}

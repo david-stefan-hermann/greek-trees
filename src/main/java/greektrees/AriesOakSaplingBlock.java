@@ -1,22 +1,20 @@
 package greektrees;
 
-import java.util.Optional;
-
-import com.mojang.serialization.MapCodec;
-
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Holder;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.RandomSource;
+import net.minecraft.util.random.WeightedList;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.BonemealSource;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.grower.TreeGrower;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.level.levelgen.feature.ConfiguredFeature;
+import net.minecraft.world.level.levelgen.feature.Feature;
 
 /**
  * The Aries oak's sapling. The giant only grows from sixteen of them in a 4x4 square, any of which may start it, the
@@ -24,22 +22,16 @@ import net.minecraft.world.level.levelgen.feature.ConfiguredFeature;
  * not used up on it.
  */
 public class AriesOakSaplingBlock extends GreekSaplingBlock {
-    public static final MapCodec<AriesOakSaplingBlock> CODEC = simpleCodec(AriesOakSaplingBlock::new);
-    /** The configured feature greektrees:aries_oak (data/greektrees/worldgen/configured_feature). */
-    public static final ResourceKey<ConfiguredFeature<?, ?>> TREE = ResourceKey.create(Registries.CONFIGURED_FEATURE,
+    /** The feature greektrees:aries_oak (data/greektrees/worldgen/feature). */
+    public static final ResourceKey<Feature> TREE = ResourceKey.create(Registries.FEATURE,
             GreekTrees.id("aries_oak"));
     /** Grows nothing by itself: the square is handled in {@link #advanceTree}. */
-    private static final TreeGrower SQUARE_ONLY = new TreeGrower(TREE.identifier().toString(), Optional.empty(),
-            Optional.empty(), Optional.empty());
+    private static final TreeGrower SQUARE_ONLY = new TreeGrower(TREE.identifier().toString(), WeightedList.of(),
+            WeightedList.of(), WeightedList.of(), null);
     private static final int SIZE = 4;
 
     public AriesOakSaplingBlock(Properties properties) {
         super(SQUARE_ONLY, false, properties);
-    }
-
-    @Override
-    public MapCodec<AriesOakSaplingBlock> codec() {
-        return CODEC;
     }
 
     @Override
@@ -49,7 +41,7 @@ public class AriesOakSaplingBlock extends GreekSaplingBlock {
             return;
         }
         BlockPos corner = square(level, pos);
-        Holder<ConfiguredFeature<?, ?>> tree = level.registryAccess().lookupOrThrow(Registries.CONFIGURED_FEATURE)
+        Holder<Feature> tree = level.registryAccess().lookupOrThrow(Registries.FEATURE)
                 .get(TREE).orElse(null);
         if (corner == null || tree == null) {
             return;
@@ -69,7 +61,7 @@ public class AriesOakSaplingBlock extends GreekSaplingBlock {
     }
 
     @Override
-    public boolean isValidBonemealTarget(LevelReader level, BlockPos pos, BlockState state) {
+    public boolean isValidBonemealTarget(LevelReader level, BlockPos pos, BlockState state, BonemealSource source) {
         return square(level, pos) != null;
     }
 

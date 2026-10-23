@@ -51,8 +51,8 @@ def write(rel, data):
 
 
 def survives(name):
-    return {'rolls': 1.0, 'entries': [{'type': 'minecraft:item', 'name': name}],
-            'conditions': [{'condition': 'minecraft:survives_explosion'}]}
+    return {'rolls': 1, 'entries': [{'type': 'minecraft:item', 'name': name}],
+            'condition': {'type': 'minecraft:survives_explosion'}}
 
 
 def main():
@@ -77,7 +77,7 @@ def main():
         write(f'data/{NS}/loot_table/blocks/{p}.json',
               {'type': 'minecraft:block', 'pools': [survives('minecraft:flower_pot'), survives(f'{NS}:{s}')],
                'random_sequence': f'{NS}:blocks/{p}'})
-        write(f'data/{NS}/worldgen/configured_feature/{tree}.json', {'type': f'{NS}:{tree}', 'config': {}})
+        write(f'data/{NS}/worldgen/feature/{tree}.json', {'type': f'{NS}:{tree}'})
         write(f'data/{NS}/recipe/{s}.json', {
             'type': 'minecraft:crafting_shapeless', 'category': 'misc',
             'ingredients': recipe, 'result': {'id': f'{NS}:{s}'}})
@@ -87,7 +87,7 @@ def main():
         de[f'block.{NS}.{s}'] = de_name
         de[f'block.{NS}.{p}'] = de_potted
     for tree in SQUARE_TREES:  # the big tree four saplings in a square grow into
-        write(f'data/{NS}/worldgen/configured_feature/large_{tree}.json', {'type': f'{NS}:large_{tree}', 'config': {}})
+        write(f'data/{NS}/worldgen/feature/large_{tree}.json', {'type': f'{NS}:large_{tree}'})
     for module in (make_dates, make_fruits, make_book):
         for key, (en_text, de_text) in module.write_all(write).items():
             en[key] = en_text

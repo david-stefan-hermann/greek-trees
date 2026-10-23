@@ -3,7 +3,7 @@
   "criteria": {
     "has_the_recipe": {
       "conditions": {
-        "recipe": "greektrees:cypress_sapling"
+        "recipes": "greektrees:cypress_sapling"
       },
       "trigger": "minecraft:recipe_unlocked"
     },
